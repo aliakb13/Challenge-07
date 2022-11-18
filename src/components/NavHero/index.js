@@ -6,11 +6,12 @@ import React from 'react';
 
 function NavHero({ diss, onDiss }) {
 
-  // function handleLogout(e) {
-  //   e.preventDefault();
-  //   localStorage.removeItem("token");
-  //   setLoggedIn(false)
-  // }
+  function handleLogout(e) {
+    e.preventDefault();
+    localStorage.removeItem("token");
+  }
+
+  let token = localStorage.getItem("token");
 
 
   return (
@@ -43,8 +44,10 @@ function NavHero({ diss, onDiss }) {
               </li>
               <li className="nav-item ms-4">
                 <div className="nav-link text-end">
-                  <Link to='/login' className="btn btn-success menu-nav me-3" style={{ backgroundColor: '#5CB85F' }}>Login</Link>
-                  <Link to='/register' className="btn btn-primary menu-nav">Register</Link>
+
+                  {token ? (<input type="submit" className="btn btn-danger" value="Logout" onClick={handleLogout} />) : <>
+                    <Link to='/login' className="btn btn-success menu-nav me-3" style={{ backgroundColor: '#5CB85F', color: 'white' }}>Login</Link>
+                    <Link to='/register' className="btn btn-primary menu-nav" style={{ color: 'white' }}>Register</Link></>}
                 </div>
               </li>
             </ul>
@@ -63,8 +66,10 @@ function NavHero({ diss, onDiss }) {
                   <li><a href="#testimonial">Testimony</a></li>
                   <li><a href="#faq">FAQ</a></li>
                   <li className="nav-item">
-                    <Link to='/login' className="btn btn-success menu-nav mt-2" style={{ backgroundColor: '#5CB85F', color: 'white' }}>Login</Link>
-                    <Link to='/register' className="btn btn-primary menu-nav mt-3" style={{ color: 'white' }}>Register</Link>
+
+                    {token ? (<input type="submit" className="btn btn-danger" value="Logout" onClick={handleLogout} />) : <>
+                      <Link to='/login' className="btn btn-success menu-nav mt-2" style={{ backgroundColor: '#5CB85F', color: 'white' }}>Login</Link>
+                      <Link to='/register' className="btn btn-primary menu-nav mt-3" style={{ color: 'white' }}>Register</Link></>}
 
                   </li>
                 </ul>

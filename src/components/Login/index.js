@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { GoogleLogin } from 'react-google-login';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 import React from 'react';
+import { Navigate } from 'react-router-dom';
 // var config = require('../../../.env')
 
 async function doLogin({ email, password }) {
@@ -24,11 +26,12 @@ async function doLoginWithGoogle(token) {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.parse({
+    body: JSON.stringify({
       token
     })
   });
   const data = await res.json();
+  // console.log("teasdoiajdi");
   return data.token;
 }
 
@@ -37,8 +40,7 @@ function Login() {
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
   // const [isLoading, setIsLoading] = useState(false);
-  // const [loggedIn, setLoggedIn] = useState(false);
-  // const token = localStorage.getItem("token");
+  const [loggedIn, setLoggedIn] = useState(false);
 
   // useEffect(() => {
   //   setLoggedIn(!!token);
@@ -46,7 +48,7 @@ function Login() {
 
   function handleSubmit(e) {
     // setIsLoading(true);
-    // setLoggedIn(true);
+    setLoggedIn(true);
     e.preventDefault();
     doLogin({ email, password })
       .then((token) => localStorage.setItem("token", token))
@@ -64,12 +66,12 @@ function Login() {
 
   const haldleSuccessGoogle = (response) => {
     console.log(response);
-    console.log(response.tokenId);
-    if (response.tokenId) {
-      doLoginWithGoogle(response.tokenId)
-        .then((token) => {
-          localStorage.setItem("token", token);
-          // setLoggedIn(token);
+    console.log(response.credential);
+    if (response.credential) {
+      doLoginWithGoogle(response.credential)
+        .then((_token) => {
+          localStorage.setItem("token", response.credential);
+          setLoggedIn(true);
         })
         .catch((err) => console.log(err.message))
 
@@ -97,13 +99,18 @@ function Login() {
           <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Your Password..." onChange={(e) => setpassword(e.target.value)} />
         </div>
         <button type="submit" className="btn btn-success me-3">Login</button>
-        <GoogleLogin
-          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-          buttonText="Login with Google"
-          onSuccess={haldleSuccessGoogle}
-          onFailure={haldleFailureGoogle}
-          cookiePolicy={'single_host_origin'}
-        />
+        <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+          <GoogleLogin
+            onSuccess={(credentialResponse) => {
+              haldleSuccessGoogle(credentialResponse);
+            }}
+            onError={() => {
+              haldleFailureGoogle('Error Login')
+            }}
+          />
+        </GoogleOAuthProvider>
+        {loggedIn ? <Navigate to="/cari" /> : ""}
+
       </div>
     </form>
   );
