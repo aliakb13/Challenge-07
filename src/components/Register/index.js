@@ -2,7 +2,7 @@ import { useState } from 'react'
 import React from 'react';
 
 async function doRegister({ email, password }) {
-  const res = await fetch("http://localhost:8000/api/v1/register", {
+  const res = await fetch("https://challenge-07-api-production.up.railway.app/api/v1/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
