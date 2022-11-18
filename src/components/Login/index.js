@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
+import React from 'react';
+// var config = require('../../../.env')
 
 async function doLogin({ email, password }) {
   const res = await fetch("http://localhost:8000/api/v1/login", {
@@ -34,47 +36,53 @@ function Login() {
 
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const token = localStorage.getItem("token");
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [loggedIn, setLoggedIn] = useState(false);
+  // const token = localStorage.getItem("token");
 
-  useEffect(() => {
-    setLoggedIn(!!token);
-  }, [token])
+  // useEffect(() => {
+  //   setLoggedIn(!!token);
+  // }, [token])
 
   function handleSubmit(e) {
-    setIsLoading(true);
-    setLoggedIn(true);
+    // setIsLoading(true);
+    // setLoggedIn(true);
     e.preventDefault();
     doLogin({ email, password })
       .then((token) => localStorage.setItem("token", token))
-      .catch((err) => console.log(err.message))
-      .finally(() => setIsLoading(false));
+      .catch((err) => console.log(err.message));
+    // .finally(() => setIsLoading(false));
   }
 
-  function handleLogout(e) {
-    setIsLoading(true);
-    e.preventDefault();
-    localStorage.removeItem("token");
-    setLoggedIn(false)
-    setIsLoading(false)
-  }
+  // function handleLogout(e) {
+  //   setIsLoading(true);
+  //   e.preventDefault();
+  //   localStorage.removeItem("token");
+  //   setLoggedIn(false)
+  //   setIsLoading(false)
+  // }
 
-  const handleSuccessGoogle = (response) => {
+  const haldleSuccessGoogle = (response) => {
     console.log(response);
     console.log(response.tokenId);
     if (response.tokenId) {
       doLoginWithGoogle(response.tokenId)
-        .then(token => {
+        .then((token) => {
           localStorage.setItem("token", token);
-          setLoggedIn(token);
+          // setLoggedIn(token);
         })
-        .catch(err => console.log(err.message))
-        .finally(() => setIsLoading(false))
+        .catch((err) => console.log(err.message))
+
+      // localStorage.setItem("token", response.tokenId);
+      // setIsLoggedIn(response.tokenId);
+
     }
   }
 
-  const handleFailureGoogle = (response) => { console.log(response); alert(response); }
+  const haldleFailureGoogle = (response) => {
+    console.log(response);
+    alert(response);
+  }
 
   return (
     <form className="container mt-5 p-3 border-success card" style={{ width: '30rem' }} onSubmit={handleSubmit}>
@@ -92,8 +100,8 @@ function Login() {
         <GoogleLogin
           clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
           buttonText="Login with Google"
-          onSuccess={handleSuccessGoogle}
-          onFailure={handleFailureGoogle}
+          onSuccess={haldleSuccessGoogle}
+          onFailure={haldleFailureGoogle}
           cookiePolicy={'single_host_origin'}
         />
       </div>

@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getListCars } from "../../actions/carsAction"
-import Cars from "../../reducers/cars"
+import React from 'react';
 
 
 function getRandomInt(min, max) {
@@ -19,8 +19,8 @@ function DateTime(hasil) {
 }
 
 
-function ListCars({ submit, data, jumlahpenumpang, tipedriver, tanggal, waktu }) {
-  const { getListCarsResult, getListCarsLoading, getListCarsError } = useSelector((state) => state.CarsReducer)
+function ListCars({ jumlahpenumpang, tipedriver, tanggal, waktu }) {
+  const { getListCarsResult, getListCarsLoading, getListCarsError } = useSelector((state) => state.Cars)
   const dispatch = useDispatch()
   const jumlah = jumlahpenumpang;
   const tipe = tipedriver === 'true' ? true : false

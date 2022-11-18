@@ -23,7 +23,6 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-
           <Route path='/' element={<LandingPage />} />
           <Route path='/cari' element={<Protected><Cari /></Protected>} />
           <Route path='/login' element={<Login />} />

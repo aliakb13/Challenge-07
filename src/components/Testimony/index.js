@@ -1,3 +1,5 @@
+import React from 'react';
+
 function Testimony() {
   return (
     <section id="testimonial">

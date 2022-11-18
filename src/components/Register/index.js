@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import React from 'react';
 
 async function doRegister({ email, password }) {
   const res = await fetch("http://localhost:8000/api/v1/register", {

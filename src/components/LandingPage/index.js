@@ -6,11 +6,15 @@ import CtaBan from "../CtaBan";
 import Faq from "../Faq";
 import Footer from "../Footer";
 import { useState } from 'react';
+import React from 'react';
 
 
 function LandingPage() {
 
   const [dissapear, setDissapear] = useState(true);
+  // const [loggedIn, setLoggedIn] = useState(false);
+  // setLoggedIn={() => setLoggedIn(!loggedIn)}
+
 
   return (
     <>

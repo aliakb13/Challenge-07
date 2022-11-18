@@ -1,3 +1,5 @@
+import React from 'react';
+
 function OurServices() {
   return (
     <section id="our-services">

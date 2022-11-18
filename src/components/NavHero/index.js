@@ -1,9 +1,17 @@
 // import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+// import { useState } from 'react';
+import React from 'react';
 
 
 function NavHero({ diss, onDiss }) {
+
+  // function handleLogout(e) {
+  //   e.preventDefault();
+  //   localStorage.removeItem("token");
+  //   setLoggedIn(false)
+  // }
+
 
   return (
     <div className="container-fluid hero-section">
