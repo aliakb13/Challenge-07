@@ -6,7 +6,7 @@ import { Navigate } from 'react-router-dom';
 // var config = require('../../../.env')
 
 async function doLogin({ email, password }) {
-  const res = await fetch("http://localhost:8000/api/v1/login", {
+  const res = await fetch("https://challenge-07-api-production.up.railway.app/api/v1/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -21,7 +21,7 @@ async function doLogin({ email, password }) {
 }
 
 async function doLoginWithGoogle(token) {
-  const res = await fetch("http://localhost:8000/v1/auth/google", {
+  const res = await fetch("https://challenge-07-api-production.up.railway.app/v1/auth/google", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
